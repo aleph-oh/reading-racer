@@ -43,7 +43,7 @@ def getAllScore(inputText, expectedText):
     for i in reversed(range(len(inputText))):
         for j in reversed(range(len(expectedText))):
             arr[i][j] = max(arr[i][j + 1], arr[i + 1][j],
-                            arr[i + 1][j + 1] + getScoreHelper(inputText[i], expectedText[j]))
+                            arr[i + 1][j + 1] + getOneScore(inputText[i], expectedText[j]))
     return arr[0][0] / (len(expectedText))
 
 
