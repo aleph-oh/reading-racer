@@ -1,18 +1,22 @@
 #!/usr/bin/env python3
 
 def getScore(inputText, expectedText):
-    texts = cleanText(inputText, expectedText)
-    result = getAllScore(texts[0], texts[1])
-    dict1 = getDict(texts[1], result[0])
+    cleanInput, cleanExpected = cleanText(inputText, expectedText)
+    result = getAllScore(cleanInput, cleanExpected)
+    dict1 = getColorsToIndices(cleanExpected, result[0])
     return(result[1], dict1)
 
-def getDict(expectedText, resultTuplesFromScore):
-    dict1 = {'green': [], 'yellow': [], 'red': []}
+
+def getColorsToIndices(expectedTextTuples, resultTuplesFromScore):
+    colors_to_indices = {'green': [], 'yellow': [], 'red': []}
     dict_color_mapping = dict(resultTuplesFromScore)
-    for i in expectedText:
-        if (i[0], i[2]) in dict_color_mapping.keys():
-            dict1[dict_color_mapping[(i[0], i[2])]].append(i[0])
-    return dict1
+    for initial_word, base_word, index in expectedTextTuples:
+        if (initial_word, index) in dict_color_mapping.keys():
+            colors_to_indices[dict_color_mapping[(initial_word, index)]].append(index)
+        else:
+            colors_to_indices['red'].append(index)
+    return colors_to_indices
+
 
 def cleanText(inputText, expectedText):
     inputTextSplit = inputText.split()
@@ -32,18 +36,11 @@ def cleanText(inputText, expectedText):
                     i = i[:-1]
                 result = i
             if len(result) >= 5:
-                if result[-2:] == 'ed':
+                exclude = {'ed', 'er', 'ls', 'ing', 'ion', 'est'}
+                if result[-2:] in exclude:
                     result = result[:-2]
-                elif result[-3:] == 'ing':
+                elif result[-3:] in exclude:
                     result = result[:-3]
-                elif result[-3:] == 'ion':
-                    result = result[:-3]
-                elif result[-2:] == 'er':
-                    result = result[:-2]
-                elif result[-3:] == 'est':
-                    result = result[:-3]
-                elif result[-2:] == 'ly':
-                    result = result[:-2]
             finalText.append((i, result, word_num))
             word_num += 1
         bothTexts.append(finalText)

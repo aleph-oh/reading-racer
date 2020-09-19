@@ -11,11 +11,22 @@ def home():
     return render_template("index.html")
 
 
+@app.route('/speak/')
+def select_grade_level():
+    return render_template("speak.html")
+
+
+@app.route('/reading-practice/')
+def reading_practice():
+    return render_template("reading-practice")
+
+
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
+# taken from Flask documentation for uploading files
 @app.route('/upload/', methods=['GET', 'POST'])
 def upload_file():
     if request.method == 'POST':
@@ -37,8 +48,7 @@ def upload_file():
     return render_template("upload.html")
 
 
+# taken from Flask documentation for uploading files
 @app.route('/uploads/<filename>')
 def get_uploaded(filename):
-    #return send_from_directory(app.config['UPLOAD_FOLDER'],
-    #                           filename)
     return send_file(os.path.join("static/client", filename))
