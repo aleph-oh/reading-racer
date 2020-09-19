@@ -1,0 +1,48 @@
+body {
+  margin: 0;
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+#topnav {
+  overflow: hidden;
+  background-color: #FFFACD;
+  position: fixed;
+  height: 50px;
+  top: 0;
+  right: -14px;
+  padding-left: 14px;
+  width: 100%;
+}
+
+#topnav .selected {
+  font-weight: bold;
+}
+
+#topnav ul {
+  list-style-type: none;
+  margin: 4px;
+  padding: 10px;
+  float: right;
+}
+
+.onnav {
+  margin: 0;
+  padding: 10px;
+}
+
+#topnav a {
+  text-decoration: none;
+  text-align: center;
+  padding: 20px;
+  font-size: 20px;
+}
+
+#topnav li {
+  display: inline;
+}
+
+#home {
+  background-color: #80dfff;
+  text-align: center;
+  height: 100%;
+}
