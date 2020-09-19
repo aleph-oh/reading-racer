@@ -1,15 +1,22 @@
+import doctest
+from typing import Dict, Iterable, List
+
 from misc_utils import invert_dict
 
 
-def format_color(expected_text, colors_to_indices):
+def format_color(expected_text: List[str], colors_to_indices: Dict[str, Iterable[int]]) -> str:
     """
-    >>> c2i = {'green': [0, 2, 3], 'yellow': [], 'red': [1, 4]}
-    >>> res = format_color("mary had a little lamb", c2i)
-    >>> res == "<span markGreen>mary </span><span markRed>had </span><span markGreen>a little </span><span markRed>lamb</span>"
+    Provide html representing string highlighted in colors matching `colors_to_indiced` for
+    expected_text
+
     :param expected_text: the original, correct text
     :param colors_to_indices: dict mapping colors (red, yellow, green) to indices of words
-    with that color
+           with that color
     :return: valid html string highlighting words in appropriate colors
+    
+    >>> c2i = {'green': [0, 2, 3], 'yellow': [], 'red': [1, 4]}
+    >>> format_color("mary had a little lamb".split(), c2i)
+    '<span markGreen>mary </span><span markRed>had </span><span markGreen>a little </span><span markRed>lamb</span>'
     """
     result_string = ""
     color_openings = {
@@ -33,3 +40,7 @@ def format_color(expected_text, colors_to_indices):
         result_string += word
     result_string += "</span>"
     return result_string
+
+
+if __name__ == '__main__':
+    doctest.testmod()
