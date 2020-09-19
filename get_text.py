@@ -9,22 +9,17 @@ URL = "https://api.us-south.speech-to-text.watson.cloud.ibm.com/instances/d9066b
 
 
 def get_service():
-    """
-    Gets speech-to-text service
-    """
+    """Gets speech-to-text service"""
     authenticator = IAMAuthenticator(API_KEY)
     speech_to_text = SpeechToTextV1(
         authenticator=authenticator
     )
-
     speech_to_text.set_service_url(URL)
     return speech_to_text
 
 
 def get_speech_recog(audio_file):
-    """
-    Return json-ified response for speech recognition on `audio_file`
-    """
+    """Return json-ified response for speech recognition on `audio_file`"""
     with open(audio_file, 'rb') as audio_file:
         speech_to_text = get_service()
         speech_recognition_results = speech_to_text.recognize(
