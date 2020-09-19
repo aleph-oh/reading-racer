@@ -1,7 +1,8 @@
 """Functions for getting text from speech"""
 import json
-from ibm_watson import SpeechToTextV1
+
 from ibm_cloud_sdk_core.authenticators import IAMAuthenticator
+from ibm_watson import SpeechToTextV1
 
 API_KEY = "xfUNxSGoR7AvqhiXgkz6GHOiJEiFUdrjDhM06gVHCGHd"
 URL = "https://api.us-south.speech-to-text.watson.cloud.ibm.com/instances/d9066bfe-a6ac-4e54" \

@@ -1,18 +1,14 @@
-#! /usr/bin/env python3
 import os
-from flask import Flask, flash, request, redirect, url_for, send_from_directory
+
+from flask import flash, render_template, redirect, request, send_from_directory, url_for, send_file
 from werkzeug.utils import secure_filename
 
-UPLOAD_FOLDER = './uploads'
-ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
-
-app = Flask(__name__)
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+from readingRacer import ALLOWED_EXTENSIONS, app
 
 
 @app.route('/')
 def home():
-    return redirect(url_for("static", filename="index.html"))
+    return render_template("index.html")
 
 
 def allowed_file(filename):
@@ -35,25 +31,19 @@ def upload_file():
             return redirect(request.url)
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
+            print('saving file')
+            print(os.path.abspath(os.path.join(app.config['UPLOAD_FOLDER'], filename)))
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            return redirect(url_for('uploaded_file',
+            print('saved file')
+            return redirect(url_for('get_uploaded',
                                     filename=filename))
-    return '''
-    <!doctype html>
-    <title>Upload new File</title>
-    <h1>Upload new File</h1>
-    <form method=post enctype=multipart/form-data>
-      <input type=file name=file>
-      <input type=submit value=Upload>
-    </form>
-    '''
+    return render_template("upload.html")
 
 
 @app.route('/uploads/<filename>')
-def uploaded_file(filename):
-    return send_from_directory(app.config['UPLOAD_FOLDER'],
-                               filename)
-
-
-if __name__ == '__main__':
-    app.run()
+def get_uploaded(filename):
+    print(filename)
+    print(os.path.abspath(os.path.join(app.config['UPLOAD_FOLDER'], filename)))
+    #return send_from_directory(app.config['UPLOAD_FOLDER'],
+    #                           filename)
+    return send_file(os.path.join("static/client", filename))
