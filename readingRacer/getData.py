@@ -40,12 +40,8 @@ def create_difficulty_dictionary(json_file):
 def get_text_data(text):
     return txt_dictionary[text]
 
-<<<<<<< HEAD
-def get_difficulty(difficulty, old_difficulty):
-=======
 
-def get_difficulty(difficulty):
->>>>>>> 5c67b514b781f60a353a58db8422db123be0d3d2
+def get_difficulty(difficulty, old_difficulty):
     grade_level = str(int(difficulty))
     grade_level_list = difficulty_dictionary[grade_level]
     lower = 0

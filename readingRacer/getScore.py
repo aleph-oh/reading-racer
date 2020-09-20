@@ -19,7 +19,6 @@ def getScore(speechToTextInput, originalText):
     userInputText = getSpeechToTextFromJson(speechToTextInput)
     cleanInput, cleanExpected = cleanText(userInputText, originalText)
     result = getAllScore(cleanInput, cleanExpected)
-<<<<<<< HEAD
     colorDictionary = getColorsToIndices(cleanExpected, result[0])
     coloredString = format_color.format_color(originalText, colorDictionary)
     newString = getNextString(result[1], originalText)
@@ -30,11 +29,6 @@ def getNextString(score, originalText):
     newDifficulty = oldDifficulty + (score-0.6)/4 + random.random()*0.2
     newText = getData.get_difficulty(newDifficulty, oldDifficulty)
     return newText
-=======
-    dict1 = getColorsToIndices(cleanExpected, result[0])
-    return result[1], dict1
-
->>>>>>> 5c67b514b781f60a353a58db8422db123be0d3d2
 
 def getSpeechToTextFromJson(json1):
     with open(json1, 'r') as f:
