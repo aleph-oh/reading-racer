@@ -41,7 +41,7 @@ def get_text_data(text):
     return txt_dictionary[text]
 
 
-def get_difficulty(difficulty):
+def get_difficulty(difficulty, old_difficulty):
     grade_level = str(int(difficulty))
     grade_level_list = difficulty_dictionary[grade_level]
     lower = 0
@@ -60,7 +60,10 @@ def get_difficulty(difficulty):
             higher = mid
     if not values:
         values += grade_level_list[max(mid-2, 0):min(mid+2, len(grade_level_list))]
-    return values[random.randint(0, 3)][1]['text']
+    randDiff = values[random.randint(0, 3)]
+    while randDiff[0] == old_difficulty:
+        randDiff = values[random.randint(0, 3)]
+    return randDiff[1]['text']
 
 
 with open("../passages.json") as f:

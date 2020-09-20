@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 import random
 import getData
+import json
+import format_color
 
 
 def get_random(grade_level):
@@ -17,14 +19,24 @@ def getScore(speechToTextInput, originalText):
     userInputText = getSpeechToTextFromJson(speechToTextInput)
     cleanInput, cleanExpected = cleanText(userInputText, originalText)
     result = getAllScore(cleanInput, cleanExpected)
-    dict1 = getColorsToIndices(cleanExpected, result[0])
-    return result[1], dict1
+    colorDictionary = getColorsToIndices(cleanExpected, result[0])
+    coloredString = format_color.format_color(originalText, colorDictionary)
+    newString = getNextString(result[1], originalText)
+    return (newString, coloredString)
 
+def getNextString(score, originalText):
+    oldDifficulty = getData.get_text_data(originalText)[2]
+    newDifficulty = oldDifficulty + (score-0.6)/4 + random.random()*0.2
+    newText = getData.get_difficulty(newDifficulty, oldDifficulty)
+    return newText
 
 def getSpeechToTextFromJson(json1):
-    for i in json1['results']:
-        text = i['alternatives'][0]
-        speech_to_text = text['transcript']
+    with open(json1, 'r') as f:
+        x = json.load(f)
+        json_data = json.loads(x)
+    i = json_data['results'][-1]
+    text = i['alternatives'][0]
+    speech_to_text = text['transcript']
     return speech_to_text
 
 
@@ -69,6 +81,7 @@ def cleanText(inputText, expectedText):
 
 
 def getAllScore(inputText, expectedText):
+    useful_len = getData.get_text_data(expectedText)[1]
     listText = [
         [[] for i in range(len(expectedText) + 1)] for j in range(len(inputText) + 1)
     ]
@@ -88,7 +101,7 @@ def getAllScore(inputText, expectedText):
                     list_best = list_best.copy() + [scoreHelper[1]]
             arr[i][j] = curr_best
             listText[i][j] = list_best
-    return (listText[0][0], arr[0][0] / len(expectedText))
+    return (listText[0][0], arr[0][0] / useful_len)
 
 
 def getOneScore(inputTextValue, expectedTextValue):
