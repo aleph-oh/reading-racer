@@ -59,9 +59,9 @@ def get_difficulty(difficulty, old_difficulty):
             higher = mid
     if not values:
         values += grade_level_list[max(mid-2, 0):min(mid+2, len(grade_level_list))]
-    randDiff = values[random.randint(0, 3)]
+    randDiff = values[random.randint(0, len(values)-1)]
     while randDiff[0] == old_difficulty:
-        randDiff = values[random.randint(0, 3)]
+        randDiff = values[random.randint(0, len(values)-1)]
     return (randDiff[1]['title'], randDiff[1]['text'])
 
 
