@@ -39,9 +39,10 @@ def reading_practice(grade):
             flash("Audio stream upload failed")
             return redirect(request.url)
         try:
-            prev_text = request.values["previous"]
+            prev_title = request.values["prev_title"]
+            prev_text = request.values["prev_text"]
         except KeyError:
-            flash("Failed to send previous text")
+            flash("Failed to send previous text or title")
             return redirect(request.url)
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
@@ -57,8 +58,8 @@ def reading_practice(grade):
 
             # change links on page to reflect right / wrong-ness
 
-    #story = get_story(grade)
-    return render_template("reading_practice_init.html")
+    title, story = getScore.getRandom(grade)
+    return render_template("reading_practice_init.html", title=title, story=story)
 
 
 def allowed_file(filename):
