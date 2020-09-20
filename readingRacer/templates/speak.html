@@ -4,37 +4,10 @@
     <link rel="stylesheet" type="text/css" href="../static/style.css" />
   </head>
   <body>
-    <div id="topnav">
-      <ul>
-        <li><a href="{{ url_for('index') }}" style="color:red">Home</a></li>
-        <li><a class="selected" href="{{ url_for('speak') }}" style="color:orange">Speak</a></li>
-        <li><a href="{{ url_for('read') }}" style="color: yellow">Read</a></li>
-        <li><a href="{{ url_for('watch') }}" style="color: 6AE161">Watch</a></li>
-      </ul>
-    </div>
-
-    <div class="box">
-      <div>
-      </div>
-      <div>
-      </div>
-      <div>
-      </div>
-      <div>
-      </div>
-      <div>
-      </div>
-      <div>
-      </div>
-      <div>
-      </div>
-      <div>
-      </div>
-      <div>
-      </div>
-      <div>
-      </div>
-    </div>
+  {% include 'navbar.html' %}
+  {% block navbar %}{% endblock %}
+  {% include 'bubbles.html' %}
+  {% block bubbles %}{% endblock %}
     <div class="select-grade">
         <article>
           <h1>Select Grade Level:</h1>
