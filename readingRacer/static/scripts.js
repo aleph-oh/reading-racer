@@ -23,3 +23,16 @@ function toggleRecording() {
         });
     }
 }
+
+var icon = document.getElementById("recordButton"),
+    bool = true;
+
+function change_icon() {
+  if (!bool) {
+    icon.innerHTML = '&#9658;';
+    bool = true;
+  } else {
+    icon.innerHTML = '&#9632;';
+    bool = false;
+  }
+}
