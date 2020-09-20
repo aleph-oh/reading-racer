@@ -48,26 +48,16 @@ def reading_practice(grade):
             filename = secure_filename(file.filename)
             path = os.path.join(app["UPLOAD_FOLDER"], filename)
             file.save(path)
-            print(path)
             # Pass file into api processing
             speech_recog = get_speech_recog(path)
             # determine accuracy of file
-            next_title, next_passage, colored_string = getScore.getScore(
-                speech_recog, prev_text
-            )
+            nextTitle, nextPassage, coloredString = getScore.getScore(speech_recog, prev_text)
             # get new contents as colors
-            return render_template(
-                "reading_practice_next.html",
-                title=prev_title,
-                passage=colored_string,
-                grade=grade,
-            )
+            return render_template("reading_practice_next.html", title=prev_title, passage=coloredString, grade=grade)
             # change links on page to reflect right / wrong-ness
 
     title, story = getScore.get_random(grade)
-    return render_template(
-        "reading_practice_init.html", title=title, passage=story, grade=grade
-    )
+    return render_template("reading_practice_init.html", title=title, passage=story, grade=grade)
 
 
 def allowed_file(filename):

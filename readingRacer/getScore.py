@@ -6,9 +6,9 @@ import format_color
 
 
 def get_random(grade_level):
-    """
+    '''
     Given a string of grade level (e.g. '1'), generate a random score within the range.
-    """
+    '''
     random_num = random.random()
     grade_level += random_num
     newTitle, newString = getData.get_difficulty(grade_level, 0)
@@ -24,13 +24,11 @@ def getScore(speechToTextInput, originalText):
     newTitle, newString = getNextString(result[1], originalText)
     return (newTitle, newString, colorDictionary)
 
-
 def getNextString(score, originalText):
     oldDifficulty = getData.get_text_data(originalText)[2]
-    newDifficulty = oldDifficulty + (score - 0.6) / 4 + random.random() * 0.2
+    newDifficulty = oldDifficulty + (score-0.6)/4 + random.random()*0.2
     newText = getData.get_difficulty(newDifficulty, oldDifficulty)
     return newText
-
 
 def getSpeechToTextFromJson(json1):
     # with open(json1, 'r') as f:
