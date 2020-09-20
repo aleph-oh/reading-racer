@@ -11,9 +11,13 @@
     <div class="prompt">
       <a href={{ url_for('speak') }}><h3> &larr; Select Grade</h3></a>
       <article>
-        <h1>{{ title }}</h1>
+          <div id="passageTitle">
+            <h1>{{ title }}</h1>
+          </div>
         <br>
-        <p>{{ passage }}</p>
+          <div id="passageText">
+            <p>{{ passage }}</p>
+          </div>
       </article>
         <section><button onclick="change_icon()" class="play" id="recordButton">&#9658;</button></section>
     </div>
