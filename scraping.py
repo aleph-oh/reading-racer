@@ -38,3 +38,7 @@ def get_stories(titles_to_links: Dict[str, str]) -> Dict[str, str]:
         except (TypeError, AttributeError):
             continue
     return titles_to_stories
+
+
+with open("all_books.txt", "w") as f:
+    f.write(str(get_stories(get_story_links())))

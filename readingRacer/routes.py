@@ -8,6 +8,7 @@ from readingRacer.get_text import get_speech_recog
 
 
 @app.route("/")
+@app.route("/index.html")
 def home():
     return render_template("index.html")
 
