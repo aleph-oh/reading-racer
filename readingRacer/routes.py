@@ -4,6 +4,7 @@ from flask import flash, redirect, render_template, request, send_file, url_for
 from werkzeug.utils import secure_filename
 
 from readingRacer import ALLOWED_EXTENSIONS, app
+from readingRacer.get_text import get_speech_recog
 
 
 @app.route("/")
@@ -11,16 +12,39 @@ def home():
     return render_template("index.html")
 
 
-@app.route("/speak/")
-def select_grade_level():
+@app.route("/speak")
+def speak():
     return render_template("speak.html")
 
 
-@app.route("/reading-practice<grade>/", methods=["GET", "POST"])
-def reading_practice(grade):
-    #story = get_story(grade)
+@app.route("/watch")
+def watch():
+    return render_template("watch.html")
 
+
+@app.route("/read")
+def read():
+    return render_template("read.html")
+
+
+@app.route("/reading-practice/<int:grade>", methods=["GET", "POST"])
+def reading_practice(grade):
     # if posted to: get next story from posted data, which should be prev. story and difficulty
+    if request.method == "POST":
+        # check if post request has file part
+        try:
+            file = request.files["file"]
+        except KeyError:
+            flash("Audio stream upload failed")
+            return redirect(request.url)
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            path = os.path.join(app["UPLOAD_FOLDER"], filename)
+            file.save(path)
+            # Pass file into api processing
+            speech_recog = get_speech_recog(path)
+
+    #story = get_story(grade)
     return render_template("reading_practice_init.html")
 
 
@@ -29,7 +53,7 @@ def allowed_file(filename):
 
 
 # taken from Flask documentation for uploading files
-@app.route("/upload/", methods=["GET", "POST"])
+@app.route("/upload", methods=["GET", "POST"])
 def upload_file():
     if request.method == "POST":
         # check if the post request has the file part
