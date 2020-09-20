@@ -11,7 +11,7 @@ def get_random(grade_level):
     '''
     random_num = random.random()
     grade_level += random_num
-    newTitle, newString = getData.get_difficulty(grade_level)
+    newTitle, newString = getData.get_difficulty(grade_level, 0)
     return newTitle, newString
 
 

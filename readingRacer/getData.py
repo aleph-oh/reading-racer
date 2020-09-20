@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-
 import random
 import json
 
@@ -66,7 +65,11 @@ def get_difficulty(difficulty, old_difficulty):
     return (randDiff[1]['title'], randDiff[1]['text'])
 
 
-with open("../passages.json") as f:
+if __name__ == '__main__':
+    path = "../passages.json"
+else:
+    path = "passages.json"
+with open(path) as f:
     x = json.load(f)
     json_file = json.loads(x)
     txt_dictionary = create_text_dict(json_file)

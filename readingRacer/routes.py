@@ -58,8 +58,9 @@ def reading_practice(grade):
 
             # change links on page to reflect right / wrong-ness
 
-    title, story = getScore.getRandom(grade)
-    return render_template("reading_practice_init.html", title=title, story=story)
+    title, story = getScore.get_random(grade)
+    print(story)
+    return render_template("reading_practice_init.html", title=title, passage=story, grade=grade)
 
 
 def allowed_file(filename):
