@@ -1,5 +1,5 @@
 import os
-
+import getScore
 from flask import flash, redirect, render_template, request, send_file, url_for
 from werkzeug.utils import secure_filename
 
@@ -53,7 +53,7 @@ def reading_practice(grade):
             speech_recog = get_speech_recog(path)
 
             # determine accuracy of file
-
+            (nextTitle, nextString, coloredString) = getScore.getScore(speech_recog, prev_text)
             # get new contents as colors
 
             # change links on page to reflect right / wrong-ness
