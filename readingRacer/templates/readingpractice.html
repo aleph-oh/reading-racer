@@ -1,7 +1,7 @@
 <html lang="en">
   <head>
     <title>Reading Practice</title>
-    <link rel="stylesheet" type="text/css" href="style.css" />
+    <link rel="stylesheet" type="text/css" href="../static/style.css" />
   </head>
   <body>
     <div id="topnav">
@@ -36,15 +36,18 @@
       </div>
     </div>
     <div class="prompt">
-    <article>
-      <h1> Title</h1>
-      </br>
-      <p>"Before the school year started, I'd heard rumors about her, and within a week I realized that they were all true.
-        For one thing, she did, in fact, wear the same outfit every day; the colors changed, but she always had on striped
-        pants and a striped jacket. For another thing, she was mind-numbingly boring."</p>
-    </article>
-      </br>
-        <section><button class="button" id="recordButton">&#9658;</button></section>
+      <a href="speak.html"><h3> &larr; Select Grade</h3></a>
+      <article>
+        <h1>Title</h1>
+        </br>
+        <p>"Before the school year started, I'd heard rumors about her, and within a week I realized that they were all true.
+          For one thing, she did, in fact, wear the same outfit every day; the colors changed, but she always had on striped
+          pants and a striped jacket. For another thing, she was mind-numbingly boring."</p>
+      </article>
+        <section><button onclick="next_passage()" class="next" id="next_button">Next Passage &rarr;</button></section>
+        </br></br>
+        <section><button onclick="change_icon()" class="play" id="recordButton">&#9658;</button></section>
+
     </div>
   </body>
   <script src="scripts.js"></script>
