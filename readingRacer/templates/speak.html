@@ -4,62 +4,33 @@
     <link rel="stylesheet" type="text/css" href="../static/style.css" />
   </head>
   <body>
-    <div id="topnav">
-      <ul>
-        <li><a href="index.html" style="color:red">Home</a></li>
-        <li><a class="selected" href="speak.html" style="color:orange">Speak</a></li>
-        <li><a href="read.html" style="color: yellow">Read</a></li>
-        <li><a href="watch.html" style="color: 6AE161">Watch</a></li>
-      </ul>
-    </div>
-
-    <div class="box">
-      <div>
-      </div>
-      <div>
-      </div>
-      <div>
-      </div>
-      <div>
-      </div>
-      <div>
-      </div>
-      <div>
-      </div>
-      <div>
-      </div>
-      <div>
-      </div>
-      <div>
-      </div>
-      <div>
-      </div>
-    </div>
+  {% include 'navbar.html' %}
+  {% block navbar %}{% endblock %}
+  {% include 'bubbles.html' %}
+  {% block bubbles %}{% endblock %}
     <div class="select-grade">
         <article>
           <h1>Select Grade Level:</h1>
-          </br>
+          <br>
             <p><div class="grid-container">
               <div class="item1"><button>
-                <a href="readingpractice1.html" style="color:#b31414">&leq; 1st</br> Grade</a></div></button>
+                <a href="{{ url_for("reading-practice", grade=1) }}" style="color:#b31414">&leq; 1st</br> Grade</button></a></div>
               <div class="item2"><button>
-                <a href="readingpractice2.html" style="color:#c45c12">2nd</br> Grade</a></div></button>
+                <a href="{{ url_for("reading-practice", grade=2) }}" style="color:#c45c12">2nd</br> Grade</button></a></div></button>
               <div class="item3"><button>
-                <a href="readingpractice3.html" style="color:#e0c815">3rd</br> Grade</a></div></button>
+                <a href="{{ url_for("reading-practice", grade=3) }}" style="color:#e0c815">3rd</br> Grade</button></a></div></button>
               <div class="item4"><button>
-                <a href="readingpractice4.html" style="color:green">4th</br> Grade</a></div></button>
+                <a href="{{ url_for("reading-practice", grade=4) }}" style="color:green">4th</br> Grade</button></a></div></button>
               <div class="item5"><button>
-                <a href="readingpractice5.html" style="color:#0e4695">5th</br> Grade</a></div></button>
+                <a href="{{ url_for("reading-practice", grade=5) }}" style="color:#0e4695">5th</br> Grade</button></a></div>
               <div class="item6"><button>
-                <a href="readingpractice6.html" style="color:navy">6th</br> Grade</a></div></button>
+                <a href="{{ url_for("reading-practice", grade=6) }}" style="color:navy">6th</br> Grade</a></button></div>
               <div class="item7"><button>
-                <a href="readingpractice7.html" style="color:purple">7th</br> Grade</a></div></button>
+                <a href="{{ url_for("reading-practice", grade=7) }}" style="color:purple">7th</br> Grade</a></button></div>
               <div class="item7"><button>
-                <a href="readingpractice8.html" style="color:indigo"> &geq; 8th</br> Grade</a></div></p></button>
-          </div>
+                <a href="{{ url_for("reading-practice", grade=8) }}" style="color:indigo"> &geq; 8th</br> Grade</a></button></div></p>
         </article>
       </div>
-  </div>
 
   </body>
 </html>

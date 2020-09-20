@@ -19,12 +19,12 @@ def get_service():
     return speech_to_text
 
 
-def get_speech_recog(audio_file):
-    """Return json-ified response for speech recognition on `audio_file`"""
-    with open(audio_file, "rb") as audio_file:
+def get_speech_recog(audio_file_path: str) -> str:
+    """Return json-ified response for speech recognition on `audio_file_path`"""
+    with open(audio_file_path, "rb") as audio_file_path:
         speech_to_text = get_service()
         speech_recognition_results = speech_to_text.recognize(
-            audio=audio_file,
+            audio=audio_file_path,
             content_type="audio/flac",
             word_alternatives_threshold=0.9,
             keywords=["colorado", "tornado", "tornadoes"],
