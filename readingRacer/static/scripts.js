@@ -1,9 +1,9 @@
-var recorder, gumStream;
-var recordButton = document.getElementById("recordButton");
+let recorder, gumStream;
+let recordButton = document.getElementById("recordButton");
 recordButton.addEventListener("click", toggleRecording);
 
 function toggleRecording() {
-    if (recorder && recorder.state == "recording") {
+    if (recorder && recorder.state === "recording") {
         recorder.stop();
         gumStream.getAudioTracks()[0].stop();
     } else {
@@ -13,8 +13,8 @@ function toggleRecording() {
             gumStream = stream;
             recorder = new MediaRecorder(stream);
             recorder.ondataavailable = function(e) {
-                var url = URL.createObjectURL(e.data);
-                var preview = document.createElement('audio');
+                let url = URL.createObjectURL(e.data);
+                let preview = document.createElement('audio');
                 preview.controls = true;
                 preview.src = url;
                 document.body.appendChild(preview);

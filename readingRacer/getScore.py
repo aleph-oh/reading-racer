@@ -1,20 +1,21 @@
 #!/usr/bin/env python3
 
+
 def getScore(inputText, expectedText):
     cleanInput, cleanExpected = cleanText(inputText, expectedText)
     result = getAllScore(cleanInput, cleanExpected)
     dict1 = getColorsToIndices(cleanExpected, result[0])
-    return(result[1], dict1)
+    return (result[1], dict1)
 
 
 def getColorsToIndices(expectedTextTuples, resultTuplesFromScore):
-    colors_to_indices = {'green': [], 'yellow': [], 'red': []}
+    colors_to_indices = {"green": [], "yellow": [], "red": []}
     dict_color_mapping = dict(resultTuplesFromScore)
     for initial_word, base_word, index in expectedTextTuples:
         if (initial_word, index) in dict_color_mapping.keys():
             colors_to_indices[dict_color_mapping[(initial_word, index)]].append(index)
         else:
-            colors_to_indices['red'].append(index)
+            colors_to_indices["red"].append(index)
     return colors_to_indices
 
 
@@ -28,15 +29,15 @@ def cleanText(inputText, expectedText):
         for i in j:
             lower = i.lower()
             result = lower
-            if lower[-1] == 's' and len(lower) >= 3:
+            if lower[-1] == "s" and len(lower) >= 3:
                 ch2 = lower[-2]
-                if (ch2 == 'e'):
+                if ch2 == "e":
                     i = i[:-2]
-                elif not (ch2 == 's') and not (ch2 == 'i') and not (ch2 == 'u'):
+                elif not (ch2 == "s") and not (ch2 == "i") and not (ch2 == "u"):
                     i = i[:-1]
                 result = i
             if len(result) >= 5:
-                exclude = {'ed', 'er', 'ls', 'ing', 'ion', 'est'}
+                exclude = {"ed", "er", "ls", "ing", "ion", "est"}
                 if result[-2:] in exclude:
                     result = result[:-2]
                 elif result[-3:] in exclude:
@@ -48,7 +49,9 @@ def cleanText(inputText, expectedText):
 
 
 def getAllScore(inputText, expectedText):
-    listText = [[[] for i in range(len(expectedText) + 1)] for j in range(len(inputText) + 1)]
+    listText = [
+        [[] for i in range(len(expectedText) + 1)] for j in range(len(inputText) + 1)
+    ]
     arr = [[0] * (len(expectedText) + 1)] * (len(inputText) + 1)
     for i in reversed(range(len(inputText))):
         for j in reversed(range(len(expectedText))):
@@ -73,8 +76,11 @@ def getOneScore(inputTextValue, expectedTextValue):
     scoreYellow = 0.5
     scoreRed = 0
     if inputTextValue[0] == expectedTextValue[0]:
-        return (scoreGreen, ((expectedTextValue[0], expectedTextValue[2]), 'green'))
-    if (inputTextValue[0] == expectedTextValue[1] or inputTextValue[1] == expectedTextValue[0] or inputTextValue[1] ==
-            expectedTextValue[1]):
-        return (scoreYellow, ((expectedTextValue[0], expectedTextValue[2]), 'yellow'))
+        return (scoreGreen, ((expectedTextValue[0], expectedTextValue[2]), "green"))
+    if (
+        inputTextValue[0] == expectedTextValue[1]
+        or inputTextValue[1] == expectedTextValue[0]
+        or inputTextValue[1] == expectedTextValue[1]
+    ):
+        return (scoreYellow, ((expectedTextValue[0], expectedTextValue[2]), "yellow"))
     return (scoreRed, tuple())
