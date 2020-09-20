@@ -38,6 +38,11 @@ def reading_practice(grade):
         except KeyError:
             flash("Audio stream upload failed")
             return redirect(request.url)
+        try:
+            prev_text = request.values["previous"]
+        except KeyError:
+            flash("Failed to send previous text")
+            return redirect(request.url)
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             path = os.path.join(app["UPLOAD_FOLDER"], filename)
