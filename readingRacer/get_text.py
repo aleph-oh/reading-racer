@@ -25,7 +25,7 @@ def get_speech_recog(audio_file_path: str) -> str:
         speech_to_text = get_service()
         speech_recognition_results = speech_to_text.recognize(
             audio=audio_file_path,
-            content_type="audio/flac",
+            content_type="audio/webm",
             word_alternatives_threshold=0.9,
         ).get_result()
     return json.dumps(speech_recognition_results)

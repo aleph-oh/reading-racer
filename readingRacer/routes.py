@@ -48,18 +48,19 @@ def reading_practice(grade):
             filename = secure_filename(file.filename)
             path = os.path.join(app["UPLOAD_FOLDER"], filename)
             # convert file to flac
-            #file.save(path)
+            print(path)
+            file.save(path)
             # Pass file into api processing
             speech_recog = get_speech_recog(path)
-
+            print(speech_recog)
             # determine accuracy of file
-            (nextTitle, nextString, coloredString) = getScore.getScore(speech_recog, prev_text)
+            nextTitle, nextPassage, coloredString = getScore.getScore(speech_recog, prev_text)
+            print(coloredString)
             # get new contents as colors
 
             # change links on page to reflect right / wrong-ness
 
     title, story = getScore.get_random(grade)
-    print(story)
     return render_template("reading_practice_init.html", title=title, passage=story, grade=grade)
 
 

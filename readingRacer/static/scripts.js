@@ -6,6 +6,7 @@ function toggleRecording() {
     if (recorder && recorder.state === "recording") {
         recorder.stop();
         gumStream.getAudioTracks()[0].stop();
+        console.log(url)
     } else {
         navigator.mediaDevices.getUserMedia({
             audio: true
@@ -13,11 +14,13 @@ function toggleRecording() {
             gumStream = stream;
             recorder = new MediaRecorder(stream);
             recorder.ondataavailable = function(e) {
-                let url = URL.createObjectURL(e.data);
-                let preview = document.createElement('audio');
+                var url = URL.createObjectURL(e.data);
+                console.log(url)
+                var preview = document.createElement('audio');
                 preview.controls = true;
                 preview.src = url;
                 document.body.appendChild(preview);
+
             };
             recorder.start();
         });
@@ -35,4 +38,5 @@ function change_icon() {
     icon.innerHTML = '&#9632;';
     bool = false;
   }
+
 }
