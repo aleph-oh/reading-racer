@@ -52,7 +52,7 @@ def reading_practice(grade):
             speech_recog = get_speech_recog(path)
 
             # determine accuracy of file
-            (nextString, coloredString) = getScore.getScore(speech_recog, prev_text)
+            (nextTitle, nextString, coloredString) = getScore.getScore(speech_recog, prev_text)
             # get new contents as colors
 
             # change links on page to reflect right / wrong-ness

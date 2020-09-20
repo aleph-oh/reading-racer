@@ -63,7 +63,7 @@ def get_difficulty(difficulty, old_difficulty):
     randDiff = values[random.randint(0, 3)]
     while randDiff[0] == old_difficulty:
         randDiff = values[random.randint(0, 3)]
-    return randDiff[1]['text']
+    return (randDiff[1]['title'], randDiff[1]['text'])
 
 
 with open("../passages.json") as f:

@@ -11,8 +11,8 @@ def get_random(grade_level):
     '''
     random_num = random.random()
     grade_level += random_num
-    newString = getData.get_difficulty(grade_level)
-    return newString
+    newTitle, newString = getData.get_difficulty(grade_level)
+    return newTitle, newString
 
 
 def getScore(speechToTextInput, originalText):
@@ -21,8 +21,8 @@ def getScore(speechToTextInput, originalText):
     result = getAllScore(cleanInput, cleanExpected)
     colorDictionary = getColorsToIndices(cleanExpected, result[0])
     coloredString = format_color.format_color(originalText, colorDictionary)
-    newString = getNextString(result[1], originalText)
-    return (newString, coloredString)
+    newTitle, newString = getNextString(result[1], originalText)
+    return (newTitle, newString, coloredString)
 
 def getNextString(score, originalText):
     oldDifficulty = getData.get_text_data(originalText)[2]
