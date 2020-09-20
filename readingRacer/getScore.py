@@ -1,12 +1,18 @@
 #!/usr/bin/env python3
 
 
-def getScore(inputText, expectedText):
-    cleanInput, cleanExpected = cleanText(inputText, expectedText)
+def getScore(speechToTextInput, originalText):
+    userInputText = getSpeechToTextFromJson(speechToTextInput)
+    cleanInput, cleanExpected = cleanText(userInputText, originalText)
     result = getAllScore(cleanInput, cleanExpected)
     dict1 = getColorsToIndices(cleanExpected, result[0])
     return (result[1], dict1)
 
+def getSpeechToTextFromJson(json1):
+    for i in json1['results']:
+        text = i['alternatives'][0]
+        speech_to_text = text['transcript']
+    return speech_to_text
 
 def getColorsToIndices(expectedTextTuples, resultTuplesFromScore):
     colors_to_indices = {"green": [], "yellow": [], "red": []}
