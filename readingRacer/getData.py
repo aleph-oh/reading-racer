@@ -42,11 +42,14 @@ def create_difficulty_dictionary(json_file):
 
 
 def get_text_data(text):
-    return txt_dictionary[text]
+    if text in txt_dictionary:
+        return txt_dictionary[text]
+    else:
+        return len(text.split())
 
 
 def get_difficulty(difficulty, old_difficulty):
-    grade_level = str(int(difficulty))
+    grade_level = str(max(min(int(difficulty), 8), 1))
     grade_level_list = difficulty_dictionary[grade_level]
     lower = 0
     higher = len(grade_level_list)
@@ -78,7 +81,7 @@ def get_difficulty(difficulty, old_difficulty):
 if __name__ == "__main__":  # TODO: check if being run from flask app, and if so, change path
     path = "../passages.json"
 else:
-    path = "passages.json"
+    path = "../passages.json"
 with open(path) as f:
     x = json.load(f)
     json_file = json.loads(x)
