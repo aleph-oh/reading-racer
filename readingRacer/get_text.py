@@ -27,7 +27,5 @@ def get_speech_recog(audio_file_path: str) -> str:
             audio=audio_file_path,
             content_type="audio/flac",
             word_alternatives_threshold=0.9,
-            keywords=["colorado", "tornado", "tornadoes"],
-            keywords_threshold=0.5,
         ).get_result()
     return json.dumps(speech_recognition_results)

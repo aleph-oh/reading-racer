@@ -41,9 +41,16 @@ def reading_practice(grade):
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             path = os.path.join(app["UPLOAD_FOLDER"], filename)
-            file.save(path)
+            # convert file to flac
+            #file.save(path)
             # Pass file into api processing
             speech_recog = get_speech_recog(path)
+
+            # determine accuracy of file
+
+            # get new contents as colors
+
+            # change links on page to reflect right / wrong-ness
 
     #story = get_story(grade)
     return render_template("reading_practice_init.html")

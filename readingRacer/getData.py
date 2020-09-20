@@ -4,7 +4,6 @@ import random
 import json
 
 
-
 def create_text_dict(json_file):
     '''
     Given a string of texts and the json file, return a dictionary mapping the text to a
@@ -23,6 +22,7 @@ def create_text_dict(json_file):
             result[text_content]=(num_words, num_frequent_words, diff, reading_time)
     return result
 
+
 def create_difficulty_dictionary(json_file):
     dict_with_difficulties = {}
     for i in json_file.keys():
@@ -36,10 +36,16 @@ def create_difficulty_dictionary(json_file):
         dict_with_difficulties[i] = list_by_difficulty
     return dict_with_difficulties
 
+
 def get_text_data(text):
     return txt_dictionary[text]
 
+<<<<<<< HEAD
 def get_difficulty(difficulty, old_difficulty):
+=======
+
+def get_difficulty(difficulty):
+>>>>>>> 5c67b514b781f60a353a58db8422db123be0d3d2
     grade_level = str(int(difficulty))
     grade_level_list = difficulty_dictionary[grade_level]
     lower = 0
@@ -48,14 +54,15 @@ def get_difficulty(difficulty, old_difficulty):
     mid = (higher-lower)//2
     while higher > lower:
         mid = lower + (higher - lower)//2
-        if grade_level_list[mid][0] == difficulty or (grade_level_list[mid][0] < difficulty and grade_level_list[mid+1][0] > difficulty):
+        if grade_level_list[mid][0] == difficulty or (
+                grade_level_list[mid][0] < difficulty < grade_level_list[mid + 1][0]):
             values += grade_level_list[max(mid-2, 0):min(mid+2, len(grade_level_list))]
             break
         elif grade_level_list[mid][0] < difficulty:
             lower = mid + 1
         elif grade_level_list[mid][0] > difficulty:
             higher = mid
-    if values == []:
+    if not values:
         values += grade_level_list[max(mid-2, 0):min(mid+2, len(grade_level_list))]
     randDiff = values[random.randint(0, 3)]
     while randDiff[0] == old_difficulty:
