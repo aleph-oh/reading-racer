@@ -3,7 +3,6 @@ import random
 import getData
 
 
-
 def get_random(grade_level):
     '''
     Given a string of grade level (e.g. '1'), generate a random score within the range.
@@ -13,18 +12,21 @@ def get_random(grade_level):
     newString = getData.get_difficulty(grade_level)
     return newString
 
+
 def getScore(speechToTextInput, originalText):
     userInputText = getSpeechToTextFromJson(speechToTextInput)
     cleanInput, cleanExpected = cleanText(userInputText, originalText)
     result = getAllScore(cleanInput, cleanExpected)
     dict1 = getColorsToIndices(cleanExpected, result[0])
-    return (result[1], dict1)
+    return result[1], dict1
+
 
 def getSpeechToTextFromJson(json1):
     for i in json1['results']:
         text = i['alternatives'][0]
         speech_to_text = text['transcript']
     return speech_to_text
+
 
 def getColorsToIndices(expectedTextTuples, resultTuplesFromScore):
     colors_to_indices = {"green": [], "yellow": [], "red": []}
