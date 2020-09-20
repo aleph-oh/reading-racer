@@ -30,7 +30,9 @@ def format_color(
     indices_to_colors = invert_dict(colors_to_indices)
     for i, word in enumerate(expected_text):
         try:
-            assert len(indices_to_colors[i]) == 1
+            assert (
+                len(indices_to_colors[i]) == 1
+            )  # bug: case where no highlight color exists
             for c in indices_to_colors[i]:
                 color = c
             if i != 0:

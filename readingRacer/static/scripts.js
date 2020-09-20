@@ -6,8 +6,8 @@ function toggleRecording() {
     if (recorder && recorder.state === "recording") {
         recorder.stop();
         gumStream.getAudioTracks()[0].stop();
-        let audioFile = document.getElementsByTagName('audio');
-        sendAudio(audioFile[0]);
+        let audioFile = document.getElementsByTagName('audio')[0];
+        sendAudio(audioFile);
     } else {
         navigator.mediaDevices.getUserMedia({
             audio: true
