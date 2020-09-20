@@ -41,7 +41,8 @@ def reading_practice(grade):
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             path = os.path.join(app["UPLOAD_FOLDER"], filename)
-            file.save(path)
+            # convert file to flac
+            #file.save(path)
             # Pass file into api processing
             speech_recog = get_speech_recog(path)
 
