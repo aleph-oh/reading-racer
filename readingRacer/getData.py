@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
-
-
+import random
+import json
 
 
 
@@ -25,8 +25,8 @@ def create_text_dict(json_file):
 
 def create_difficulty_dictionary(json_file):
     dict_with_difficulties = {}
-    for i in x2.keys():
-        items = x2[i]
+    for i in json_file.keys():
+        items = json_file[i]
         list_by_difficulty = []
         for j in items:
             dict1 = {'text': j['text'], 'title':j['title'], 'number_words':j['number_words'], 'num_frequent_words':j['num_frequent_words']}
@@ -36,6 +36,32 @@ def create_difficulty_dictionary(json_file):
         dict_with_difficulties[i] = list_by_difficulty
     return dict_with_difficulties
 
+def get_text_data(text):
+    return txt_dictionary[text]
+
+def get_difficulty(difficulty):
+    grade_level = str(int(difficulty))
+    grade_level_list = difficulty_dictionary[grade_level]
+    lower = 0
+    higher = len(grade_level_list)
+    values = []
+    mid = (higher-lower)//2
+    while higher > lower:
+        mid = lower + (higher - lower)//2
+        if grade_level_list[mid][0] == difficulty or (grade_level_list[mid][0] < difficulty and grade_level_list[mid+1][0] > difficulty):
+            values += grade_level_list[max(mid-2, 0):min(mid+2, len(grade_level_list))]
+            break
+        elif grade_level_list[mid][0] < difficulty:
+            lower = mid + 1
+        elif grade_level_list[mid][0] > difficulty:
+            higher = mid
+    if values == []:
+        values += grade_level_list[max(mid-2, 0):min(mid+2, len(grade_level_list))]
+    return values[random.randint(0, 3)][1]['text']
+
+
 with open("../passages.json") as f:
-    txt_dictionary = create_text_dict(f)
-    difficulty_dictionary = create_difficulty_dictionary(f)
+    x = json.load(f)
+    json_file = json.loads(x)
+    txt_dictionary = create_text_dict(json_file)
+    difficulty_dictionary = create_difficulty_dictionary(json_file)

@@ -1,5 +1,17 @@
 #!/usr/bin/env python3
+import random
+import getData
 
+
+
+def get_random(grade_level):
+    '''
+    Given a string of grade level (e.g. '1'), generate a random score within the range.
+    '''
+    random_num = random.random()
+    grade_level += random_num
+    newString = getData.get_difficulty(grade_level)
+    return newString
 
 def getScore(speechToTextInput, originalText):
     userInputText = getSpeechToTextFromJson(speechToTextInput)
