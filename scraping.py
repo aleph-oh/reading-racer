@@ -1,5 +1,4 @@
 from typing import Dict
-from pprint import pprint
 
 from bs4 import BeautifulSoup
 import requests
@@ -39,6 +38,3 @@ def get_stories(titles_to_links: Dict[str, str]) -> Dict[str, str]:
         except (TypeError, AttributeError):
             continue
     return titles_to_stories
-
-
-pprint(get_stories(get_story_links()))

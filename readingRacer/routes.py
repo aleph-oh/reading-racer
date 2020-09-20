@@ -16,9 +16,12 @@ def select_grade_level():
     return render_template("speak.html")
 
 
-@app.route("/reading-practice/")
-def reading_practice():
-    return render_template("readingpractice.html")
+@app.route("/reading-practice<grade>/", methods=["GET", "POST"])
+def reading_practice(grade):
+    #story = get_story(grade)
+
+    # if posted to: get next story from posted data, which should be prev. story and difficulty
+    return render_template("reading_practice_init.html")
 
 
 def allowed_file(filename):
