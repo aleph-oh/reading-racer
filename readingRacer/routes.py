@@ -51,17 +51,18 @@ def reading_practice(grade):
             # Pass file into api processing
             speech_recog = get_speech_recog(path)
             # determine accuracy of file
-            nextTitle, nextPassage, coloredString = getScore.getScore(
+            next_title, next_passage, colored_string = getScore.getScore(
                 speech_recog, prev_text
             )
             # get new contents as colors
             return render_template(
                 "reading_practice_next.html",
                 title=prev_title,
-                passage=coloredString,
+                passage=colored_string,
                 grade=grade,
             )
             # change links on page to reflect right / wrong-ness
+            # TODO: links to next
 
     title, story = getScore.get_random(grade)
     return render_template(

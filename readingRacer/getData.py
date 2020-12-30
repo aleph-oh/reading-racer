@@ -56,23 +56,18 @@ def get_difficulty(difficulty, old_difficulty):
     values = []
     mid = (higher + lower) // 2
     while higher > lower:
-        mid = lower + (higher + lower) // 2
-        try:
-            if grade_level_list[mid][0] == difficulty or (
-                grade_level_list[mid][0] < difficulty < grade_level_list[mid + 1][0]
-            ):
-                values += grade_level_list[
-                    max(mid - 2, 0) : min(mid + 2, len(grade_level_list))
-                ]
-                break
-            elif grade_level_list[mid][0] < difficulty:
-                lower = mid + 1
-            elif grade_level_list[mid][0] > difficulty:
-                higher = mid
-        except IndexError:
-            print("Errored")
-            print(grade_level_list)
+        mid = (higher + lower) // 2
+        if grade_level_list[mid][0] == difficulty or (
+            grade_level_list[mid][0] < difficulty < grade_level_list[mid + 1][0]
+        ):
+            values += grade_level_list[
+                max(mid - 2, 0) : min(mid + 2, len(grade_level_list))
+            ]
             break
+        elif grade_level_list[mid][0] < difficulty:
+            lower = mid + 1
+        elif grade_level_list[mid][0] > difficulty:
+            higher = mid - 1
     if not values:
         values += grade_level_list[
             max(mid - 2, 0) : min(mid + 2, len(grade_level_list))
@@ -83,7 +78,9 @@ def get_difficulty(difficulty, old_difficulty):
     return randDiff[1]["title"], randDiff[1]["text"]
 
 
-if __name__ == "__main__":  # TODO: check if being run from flask app, and if so, change path
+if (
+    __name__ == "__main__"
+):  # TODO: check if being run from flask app, and if so, change path
     path = "../passages.json"
 else:
     path = "passages.json"

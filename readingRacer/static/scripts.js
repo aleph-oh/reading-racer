@@ -15,7 +15,7 @@ function toggleRecording() {
             gumStream = stream;
             recorder = new MediaRecorder(stream);
             recorder.ondataavailable = function(e) {
-                var url = URL.createObjectURL(e.data);
+                const url = URL.createObjectURL(e.data);
                 let preview = document.createElement('audio');
                 preview.controls = true;
                 preview.src = url;
@@ -32,19 +32,21 @@ function sendAudio(audioFile) {
     formData.append("prev_title", document.getElementById("passageTitle").textContent);
     formData.append("prev_text", document.getElementById("passageText").textContent);
     formData.append("file", audioFile);
-    fetch(".",{method: "POST", body: formData});
+    console.log(document.location)
+    fetch(document.location.href,{method: "POST", body: formData}).then((success) => void(0),
+        (failure) => void(0));
 }
 
-var icon = document.getElementById("recordButton"),
-    bool = true;
+let icon = document.getElementById("recordButton"),
+    squarePlayIcon = true;
 
 function change_icon() {
-  if (!bool) {
+  if (!squarePlayIcon) {
     icon.innerHTML = '&#9658;';
-    bool = true;
+    squarePlayIcon = true;
   } else {
     icon.innerHTML = '&#9632;';
-    bool = false;
+    squarePlayIcon = false;
   }
 
 }
