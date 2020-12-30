@@ -57,17 +57,22 @@ def get_difficulty(difficulty, old_difficulty):
     mid = (higher + lower) // 2
     while higher > lower:
         mid = lower + (higher + lower) // 2
-        if grade_level_list[mid][0] == difficulty or (
-            grade_level_list[mid][0] < difficulty < grade_level_list[mid + 1][0]
-        ):
-            values += grade_level_list[
-                max(mid - 2, 0) : min(mid + 2, len(grade_level_list))
-            ]
+        try:
+            if grade_level_list[mid][0] == difficulty or (
+                grade_level_list[mid][0] < difficulty < grade_level_list[mid + 1][0]
+            ):
+                values += grade_level_list[
+                    max(mid - 2, 0) : min(mid + 2, len(grade_level_list))
+                ]
+                break
+            elif grade_level_list[mid][0] < difficulty:
+                lower = mid + 1
+            elif grade_level_list[mid][0] > difficulty:
+                higher = mid
+        except IndexError:
+            print("Errored")
+            print(grade_level_list)
             break
-        elif grade_level_list[mid][0] < difficulty:
-            lower = mid + 1
-        elif grade_level_list[mid][0] > difficulty:
-            higher = mid
     if not values:
         values += grade_level_list[
             max(mid - 2, 0) : min(mid + 2, len(grade_level_list))
@@ -75,13 +80,13 @@ def get_difficulty(difficulty, old_difficulty):
     randDiff = values[random.randint(0, len(values) - 1)]
     while randDiff[0] == old_difficulty:
         randDiff = values[random.randint(0, len(values) - 1)]
-    return (randDiff[1]["title"], randDiff[1]["text"])
+    return randDiff[1]["title"], randDiff[1]["text"]
 
 
 if __name__ == "__main__":  # TODO: check if being run from flask app, and if so, change path
     path = "../passages.json"
 else:
-    path = "../passages.json"
+    path = "passages.json"
 with open(path) as f:
     x = json.load(f)
     json_file = json.loads(x)

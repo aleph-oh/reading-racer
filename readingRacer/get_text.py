@@ -16,6 +16,7 @@ def get_service():
     authenticator = IAMAuthenticator(API_KEY)
     speech_to_text = SpeechToTextV1(authenticator=authenticator)
     speech_to_text.set_service_url(URL)
+    print(speech_to_text)
     return speech_to_text
 
 
