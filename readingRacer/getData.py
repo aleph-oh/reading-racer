@@ -49,7 +49,7 @@ def get_text_data(text):
         return (len(text.split()), int(0.9*len(text.split())), 3.5, 8)
 
 
-def get_difficulty(difficulty, old_difficulty):
+def get_text_with_new_difficulty(difficulty, old_difficulty):
     grade_level = str(max(min(int(difficulty), 8), 1))
     grade_level_list = difficulty_dictionary[grade_level]
     lower = 0
@@ -58,7 +58,10 @@ def get_difficulty(difficulty, old_difficulty):
     mid = (higher + lower) // 2
     while higher > lower:
         mid = (higher + lower) // 2
-        if grade_level_list[mid][0] == difficulty or (grade_level_list[mid][0] < difficulty < grade_level_list[mid + 1][0]):
+        if grade_level_list[mid][0] == difficulty or (
+            grade_level_list[mid][0] < difficulty < grade_level_list[min(mid + 1, len(grade_level_list) - 1)][0]
+            # No guarantee that mid + 1 is a valid index
+        ):
             values += grade_level_list[
                 max(mid - 2, 0) : min(mid + 2, len(grade_level_list))
             ]
@@ -79,7 +82,7 @@ def get_difficulty(difficulty, old_difficulty):
 
 if (
     __name__ == "__main__"
-):  # TODO: check if being run from flask app, and if so, change path
+):
     path = "../passages.json"
 else:
     path = "./passages.json"

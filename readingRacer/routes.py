@@ -1,4 +1,4 @@
-import os
+import os, sys
 from flask import flash, redirect, render_template, request, send_file, url_for
 from werkzeug.utils import secure_filename
 
@@ -35,15 +35,18 @@ def reading_practice(grade):
         try:
             file = request.files["file"]
         except KeyError:
+            print("Audio stream upload failed", file=sys.stderr)
             flash("Audio stream upload failed")
             return redirect(request.url)
         try:
             prev_title = request.values["prev_title"]
             prev_text = request.values["prev_text"]
         except KeyError:
+            print("Failed to send previous text or title", file=sys.stderr)
             flash("Failed to send previous text or title")
             return redirect(request.url)
         if file and allowed_file(request.values['filename']):
+            print("Filename allowed")
             filename = secure_filename(request.values['filename'])
             path = os.path.join(app.config["UPLOAD_FOLDER"], filename)
             file.save(path)
@@ -53,6 +56,8 @@ def reading_practice(grade):
             next_title, next_passage, colored_string = getScore.getScore(
                 speech_recog, prev_text
             )
+            print("Got next passage")
+            print(f"Color dict: {colored_string}")
             # get new contents as colors
             return render_template(
                 "reading_practice_next.html",

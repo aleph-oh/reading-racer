@@ -12,7 +12,7 @@ def get_random(grade_level):
     """
     random_num = random.random()
     grade_level += random_num
-    newTitle, newString = getData.get_difficulty(grade_level, 0)
+    newTitle, newString = getData.get_text_with_new_difficulty(grade_level, 0)
     return newTitle, newString
 
 
@@ -30,7 +30,7 @@ def getScore(speechToTextInput, originalText):
 def getNextString(score, originalText):
     oldDifficulty = getData.get_text_data(originalText)[2]
     newDifficulty = oldDifficulty + (score - 0.6) / 4 + random.random() * 0.2
-    newText = getData.get_difficulty(newDifficulty, oldDifficulty)
+    newText = getData.get_text_with_new_difficulty(newDifficulty, oldDifficulty)
     return newText
 
 

@@ -7,9 +7,9 @@ function toggleRecording() {
     if (recorder && recorder.state === "recording") {
         recorder.stop();
         const blob = new Blob(data, {
-            'type': 'audio/wav'
+            'type': 'audio/webm'
         });
-        sendAudio(blob, "doot.wav");
+        sendAudio(blob, "doot.webm");
     } else {
         navigator.mediaDevices.getUserMedia({
             audio: true
@@ -47,4 +47,8 @@ function change_icon() {
     squarePlayIcon = false;
   }
 
+}
+
+function next_passage() {
+    // TODO: should this even take params
 }
