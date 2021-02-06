@@ -16,7 +16,6 @@ def get_service():
     authenticator = IAMAuthenticator(API_KEY)
     speech_to_text = SpeechToTextV1(authenticator=authenticator)
     speech_to_text.set_service_url(URL)
-    print(speech_to_text)
     return speech_to_text
 
 
@@ -29,4 +28,9 @@ def get_speech_recog(audio_file_path: str) -> str:
             content_type="audio/webm",
             word_alternatives_threshold=0.9,
         ).get_result()
+    if speech_recognition_results['results'] == []:
+        speech_recognition_results = {'result_index': 0, 'results': [{'final': True, 'alternatives': [
+            {'transcript': '',
+             'confidence': 0.0}], 'word_alternatives': [
+            {'start_time': 0, 'end_time': 0.01, 'alternatives': []}]}]}
     return json.dumps(speech_recognition_results)

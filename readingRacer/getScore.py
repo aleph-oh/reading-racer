@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import random
+import re
 from readingRacer import getData
 import json
 from readingRacer import format_color
@@ -22,6 +23,7 @@ def getScore(speechToTextInput, originalText):
     colorDictionary = getColorsToIndices(cleanExpected, result[0])
     # coloredString = format_color.format_color(originalText, colorDictionary)
     newTitle, newString = getNextString(result[1], originalText)
+    print(newTitle, newString, colorDictionary)
     return (newTitle, newString, colorDictionary)
 
 
@@ -33,8 +35,6 @@ def getNextString(score, originalText):
 
 
 def getSpeechToTextFromJson(json1):
-    # with open(json1, 'r') as f:
-    #     x = json.load(f)
     json_data = json.loads(json1)
     i = json_data["results"][0]
     text = i["alternatives"][0]
@@ -54,6 +54,9 @@ def getColorsToIndices(expectedTextTuples, resultTuplesFromScore):
 
 
 def cleanText(inputText, expectedText):
+    inputText = re.sub(r'[^a-zA-Z0-9 ]', '', inputText)
+    expectedText = re.sub(r'[^a-zA-Z0-9 ]', '', expectedText)
+
     inputTextSplit = inputText.split()
     expectedSplit = expectedText.split()
     bothTexts = []

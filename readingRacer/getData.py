@@ -42,10 +42,11 @@ def create_difficulty_dictionary(json_file):
 
 
 def get_text_data(text):
+    text = text.strip()
     if text in txt_dictionary:
         return txt_dictionary[text]
     else:
-        return len(text.split())
+        return (len(text.split()), int(0.9*len(text.split())), 3.5, 8)
 
 
 def get_difficulty(difficulty, old_difficulty):
@@ -57,9 +58,7 @@ def get_difficulty(difficulty, old_difficulty):
     mid = (higher + lower) // 2
     while higher > lower:
         mid = (higher + lower) // 2
-        if grade_level_list[mid][0] == difficulty or (
-            grade_level_list[mid][0] < difficulty < grade_level_list[mid + 1][0]
-        ):
+        if grade_level_list[mid][0] == difficulty or (grade_level_list[mid][0] < difficulty < grade_level_list[mid + 1][0]):
             values += grade_level_list[
                 max(mid - 2, 0) : min(mid + 2, len(grade_level_list))
             ]
