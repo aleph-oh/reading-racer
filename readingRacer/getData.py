@@ -8,7 +8,7 @@ def create_text_dict(json_file):
     Given a string of texts and the json file, return a dictionary mapping the text to a
     tuple containing: {text: (num_words, num_frequent_words, difficulty, reading_time)}
     """
-    grades = ("1", "2", "3", "4", "5", "6", "7", "8")
+    grades = tuple(str(i) for i in range(1, 9))
     result = {}
     for grade in grades:
         grade_data = json_file[grade]

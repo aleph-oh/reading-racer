@@ -1,4 +1,5 @@
 from collections import defaultdict
+import os.path
 
 
 def invert_dict(d):
@@ -22,3 +23,7 @@ def invert_dict(d):
         for v in iterable:
             inverted[v].add(k)
     return inverted
+
+
+def next_available_filename(pat: str, directory: str) -> str: 
+    return os.path.join(directory, pat.format(0))

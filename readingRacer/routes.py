@@ -1,9 +1,8 @@
 import os
-import getScore
 from flask import flash, redirect, render_template, request, send_file, url_for
 from werkzeug.utils import secure_filename
 
-from readingRacer import ALLOWED_EXTENSIONS, app
+from readingRacer import ALLOWED_EXTENSIONS, app, getScore
 from readingRacer.get_text import get_speech_recog
 
 
@@ -44,9 +43,9 @@ def reading_practice(grade):
         except KeyError:
             flash("Failed to send previous text or title")
             return redirect(request.url)
-        if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
-            path = os.path.join(app["UPLOAD_FOLDER"], filename)
+        if file and allowed_file(request.values['filename']):
+            filename = secure_filename(request.values['filename'])
+            path = os.path.join(app.config["UPLOAD_FOLDER"], filename)
             file.save(path)
             # Pass file into api processing
             speech_recog = get_speech_recog(path)

@@ -1,40 +1,38 @@
-let recorder, gumStream;
+let recorder;
+let data = [];
 let recordButton = document.getElementById("recordButton");
 recordButton.addEventListener("click", toggleRecording);
 
 function toggleRecording() {
     if (recorder && recorder.state === "recording") {
         recorder.stop();
-        gumStream.getAudioTracks()[0].stop();
-        let audioFile = document.getElementsByTagName('audio')[0];
-        sendAudio(audioFile);
+        const blob = new Blob(data, {
+            'type': 'audio/wav'
+        });
+        sendAudio(blob, "doot.wav");
     } else {
         navigator.mediaDevices.getUserMedia({
             audio: true
         }).then(function(stream) {
-            gumStream = stream;
             recorder = new MediaRecorder(stream);
-            recorder.ondataavailable = function(e) {
-                const url = URL.createObjectURL(e.data);
-                let preview = document.createElement('audio');
-                preview.controls = true;
-                preview.src = url;
-                document.body.appendChild(preview);
-
+            recorder.ondataavailable = event => {
+                data.push(event.data);
             };
             recorder.start();
         });
     }
 }
 
-function sendAudio(audioFile) {
+function sendAudio(audioFile, fileName) {
     const formData = new FormData();
+    formData.append("file", audioFile);
+    formData.append("filename", fileName);
     formData.append("prev_title", document.getElementById("passageTitle").textContent);
     formData.append("prev_text", document.getElementById("passageText").textContent);
-    formData.append("file", audioFile);
-    console.log(document.location)
-    fetch(document.location.href,{method: "POST", body: formData}).then((success) => void(0),
-        (failure) => void(0));
+    fetch(document.location.href,
+        {method: "POST",
+            body: formData}).then((_) => void(0),
+        (_) => void(0));
 }
 
 let icon = document.getElementById("recordButton"),
