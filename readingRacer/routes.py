@@ -1,5 +1,6 @@
 import os
-import getScore
+
+from readingRacer import getScore
 from flask import flash, redirect, render_template, request, send_file, url_for
 from werkzeug.utils import secure_filename
 

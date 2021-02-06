@@ -83,7 +83,7 @@ if (
 ):  # TODO: check if being run from flask app, and if so, change path
     path = "../passages.json"
 else:
-    path = "passages.json"
+    path = "./passages.json"
 with open(path) as f:
     x = json.load(f)
     json_file = json.loads(x)
