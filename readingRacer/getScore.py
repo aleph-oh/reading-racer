@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 import random
-import getData
+from readingRacer import getData
 import json
-import format_color
+from readingRacer import format_color
 
 
 def get_random(grade_level):

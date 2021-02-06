@@ -1,7 +1,7 @@
 import doctest
 from typing import Dict, Iterable, List
 
-from misc_utils import invert_dict
+from readingRacer.misc_utils import invert_dict
 
 
 def format_color(
