@@ -3,6 +3,9 @@ let data = [];
 let recordButton = document.getElementById("recordButton");
 recordButton.addEventListener("click", toggleRecording);
 
+/**
+ * Toggle audio recording, ending and sending recording if previous button press started recording.
+ */
 function toggleRecording() {
     if (recorder && recorder.state === "recording") {
         recorder.stop();
@@ -23,7 +26,21 @@ function toggleRecording() {
     }
 }
 
+/**
+ * Store current title and text for later use by next reading_practice_init.
+ */
+function storeCurrent() {
+    sessionStorage.setItem("prev_title", document.getElementById("passageTitle").textContent);
+    sessionStorage.setItem("prev_text", document.getElementById("passageText").textContent);
+}
+
+/**
+ * Send audio via POST request, as well as previous title and text; endpoint will redirect.
+ * @param audioFile audio data to send
+ * @param fileName filename to upload to
+ */
 function sendAudio(audioFile, fileName) {
+    storeCurrent();
     const formData = new FormData();
     formData.append("file", audioFile);
     formData.append("filename", fileName);
@@ -47,8 +64,4 @@ function change_icon() {
     squarePlayIcon = false;
   }
 
-}
-
-function next_passage() {
-    // TODO: should this even take params
 }

@@ -9,7 +9,7 @@
   {% include 'bubbles.html' %}
   {% block bubbles %}{% endblock %}
     <div class="prompt">
-      <a href="speak.html"><h3> &larr; Select Grade</h3></a>
+      <a href={{ url_for('speak') }}><h3> &larr; Select Grade</h3></a>
       <article>
         <h1>{{ prev_title }}</h1>
         <br>
